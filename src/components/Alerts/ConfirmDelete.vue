@@ -2,7 +2,7 @@
   <div class="delete_el">
     <h3>Подтвердить действие?</h3>
     <div class="block_button">
-      <div class="button red"> Подтвердить </div>
+      <div class="button red" @click="conf"> Подтвердить </div>
       <div class="button" @click="close()"> Отменить </div>
     </div>
 
@@ -13,6 +13,10 @@
 export default {
   name: "ConfirmDelete",
   methods: {
+    conf() {
+      this.$emit('confirmDel')
+      this.close()
+    },
     close() {
         this.$emit('close')
     }

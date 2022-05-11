@@ -2,9 +2,9 @@
   <div class="block_alert">
     <div class="body">
       <div class="close_button" @click="close()">x</div>
-      <ConfirmDelete v-if="false"  :mode="closeMode" v-on:close="close"/>
-      <EditNote v-if="false"/>
-      <AddNewNote/>
+      <ConfirmDelete v-if="mode == 'delete'" v-on:close="close" v-on:confirmDel="conf"/>
+      <EditNote v-if="mode == 'edit'" v-on:close="close" :idEl="getEl()" v-on:retFunc="updatePoint($event)"/>
+      <AddNewNote v-if="mode == 'add'" v-on:close="close"/>
     </div>
   </div>
 </template>
@@ -16,7 +16,7 @@ import AddNewNote from "@/components/Alerts/AddNewNote";
 
 export default {
   name: "AlertPanel",
-  props: ['mode'],
+  props: ['mode', 'idPoint'],
   data() {
     return {
       closeMode: 'close',
@@ -29,8 +29,20 @@ export default {
     AddNewNote
   },
   methods: {
+    updatePoint(el) {
+      let d = JSON.parse(localStorage.getItem('storedTodos'))
+      d[this.idPoint] = el
+      localStorage.setItem('storedTodos',JSON.stringify(d))
+      this.close()
+    },
     close() {
       this.$emit('close')
+    },
+    conf() {
+      this.$emit('confirm', true)
+    },
+    getEl() {
+      return  JSON.parse(localStorage.getItem('storedTodos'))[this.idPoint]
     }
   }
 }

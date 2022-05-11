@@ -2,13 +2,18 @@
   <div class="block_diviver">
     <div class="head">Список задач</div>
     <hr class="diviver">
-    <div class="add_button">+</div>
+    <div class="add_button" @click="addEvent()">+</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "DivBlock"
+  name: "DivBlock",
+  methods: {
+    addEvent() {
+      this.$emit('add')
+    }
+  }
 }
 </script>
 

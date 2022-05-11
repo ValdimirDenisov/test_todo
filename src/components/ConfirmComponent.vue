@@ -2,7 +2,7 @@
   <div class="block_alert">
     <div class="body">
       <div class="close_button" @click="close()">x</div>
-      <ConfirmDelete v-on:close="close"/>
+      <ConfirmDelete v-on:close="close" v-on:confirmDel="conf"/>
     </div>
   </div>
 </template>
@@ -23,7 +23,10 @@ export default {
   methods: {
     close() {
       this.$emit('close')
-    }
+    },
+    conf() {
+      this.$emit('confirm', true)
+    },
   }
 }
 </script>
